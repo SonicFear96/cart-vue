@@ -55,11 +55,17 @@ export default {
   &.button-type-default {
     background: $color-black-second;
     color: $color-white;
+    svg {
+      color: $color-white;
+    }
   }
   &.button-type-light {
     background: $color-white;
     color: $color-black;
     border: 1px solid $color-black;
+    svg {
+      color: $color-black;
+    }
   }
   &.button-icon {
     justify-content: space-between;

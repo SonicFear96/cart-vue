@@ -8,8 +8,12 @@
         </section>
         <section class="catalog-wrapper">
           <ul class="catalog-list">
-            <li class="catalog-item">
-              <ProductCard />
+            <li
+              v-for="index in 7"
+              :key="index"
+              :class="['catalog-item', { wide: index === 3 }]"
+            >
+              <ProductCard :type="index === 3 ? 'wide' : ''" />
             </li>
           </ul>
         </section>
@@ -48,6 +52,23 @@ export default {
   }
   .menu-filter-wrapper {
     margin-top: 80px;
+  }
+  .catalog {
+    &-list {
+      margin-top: 120px;
+      margin-bottom: 120px;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 60px 20px;
+    }
+    &-item {
+      width: calc(25% - 15px);
+      &.wide {
+        width: calc(50% - 15px);
+      }
+    }
   }
 }
 </style>
