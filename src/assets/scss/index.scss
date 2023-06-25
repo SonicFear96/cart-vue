@@ -1,6 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "variables/index";
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+* {
+  vertical-align: baseline;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 html {
   font-family: "Inter", sans-serif;
-  color: red;
+  color: $color-light-black;
+}
+
+.wrapper {
+  padding: 0 100px;
 }
