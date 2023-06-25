@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <Header />
-    <div class="main-content wrapper">
-      <section class="menu-filter-wrapper">
-        <MenuFilter />
-      </section>
-      <section class="catalog-wrapper">
-        <ul class="catalog-list">
-          <li class="catalog-item">
-            <ProductCard />
-          </li>
-        </ul>
-      </section>
-    </div>
+    <main>
+      <div class="main-content wrapper">
+        <section class="menu-filter-wrapper">
+          <MenuFilter />
+        </section>
+        <section class="catalog-wrapper">
+          <ul class="catalog-list">
+            <li class="catalog-item">
+              <ProductCard />
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
     <Footer />
   </div>
 </template>
@@ -37,5 +39,15 @@ export default {
 #app {
   max-width: 1600px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  main {
+    flex-grow: 1;
+  }
+  .menu-filter-wrapper {
+    margin-top: 80px;
+  }
 }
 </style>

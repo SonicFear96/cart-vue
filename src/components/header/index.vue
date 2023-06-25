@@ -7,14 +7,16 @@
         </div>
         <div class="header-component__nav-wrapper">
           <ul class="header-component__nav-list">
-            <li class="header-component__nav-item active">Catalog</li>
+            <li class="header-component__nav-item">
+              <a href="#" class="header-component__nav-link active">Catalog</a>
+            </li>
           </ul>
         </div>
       </div>
       <div class="header-component__right-menu">
         <ul class="header-component__menu-list">
           <li class="header-component__menu-item">
-            <a class="header-component__link">Profile</a>
+            <a href="#" class="header-component__menu-link">Profile</a>
           </li>
           <li class="header-component__menu-item">
             <button class="header-component__menu-item-button">
@@ -68,9 +70,10 @@ export default {
     &-list {
       list-style: none;
     }
-    &-item {
+    &-link {
       &.active {
         color: $color-orange;
+        text-decoration: none;
       }
     }
   }
@@ -79,9 +82,14 @@ export default {
     display: flex;
     gap: 44px;
   }
+  &__menu-link {
+    text-decoration: none;
+    color: $color-black;
+  }
   &__menu-item {
     &-button {
       background: none;
+      cursor: pointer;
     }
   }
 }

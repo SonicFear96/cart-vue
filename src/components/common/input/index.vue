@@ -36,6 +36,16 @@ export default {
 
 <style lang="scss">
 .input-component {
-  // Your custom styles here
+  input {
+    padding: 20px;
+    background: $color-grey;
+    width: 100%;
+    color: $color-black;
+    font-size: $font-size-default;
+    font-weight: $font-weight-medium;
+    &::placeholder {
+      color: $color-black;
+    }
+  }
 }
 </style>

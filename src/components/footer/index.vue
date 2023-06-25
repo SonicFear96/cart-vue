@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss">
 .footer-component {
-  background: $color-black-footer;
+  background: $color-black-second;
   color: $color-white;
   &__wrapper {
     padding-top: 43px;

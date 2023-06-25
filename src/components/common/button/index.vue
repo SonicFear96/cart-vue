@@ -1,7 +1,7 @@
 <template>
-  <a
+  <button
     class="button-component"
-    :class="[classList, { disabled }]"
+    :class="[classList, { 'button-icon': $slots['icon-default'] }]"
     role="button"
     :type="native"
     @click="click"
@@ -9,7 +9,10 @@
     @blur="$emit('blur')"
   >
     <slot></slot>
-  </a>
+    <span v-if="$slots['icon-default']" class="btn__icon">
+      <slot name="icon-default"></slot>
+    </span>
+  </button>
 </template>
 
 <script>
@@ -44,6 +47,22 @@ export default {
 
 <style lang="scss">
 .button-component {
-  // Your custom styles here
+  border: 1px solid transparent;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  &.button-type-default {
+    background: $color-black-second;
+    color: $color-white;
+  }
+  &.button-type-light {
+    background: $color-white;
+    color: $color-black;
+    border: 1px solid $color-black;
+  }
+  &.button-icon {
+    justify-content: space-between;
+  }
 }
 </style>
