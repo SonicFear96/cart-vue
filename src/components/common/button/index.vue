@@ -20,7 +20,7 @@ export default {
   name: "button-component",
   props: {
     type: {
-      type: String,
+      type: String, // default, light, order
       default: "default",
     },
     native: {
@@ -52,6 +52,9 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  background: $color-black-second;
+  color: $color-white;
+  cursor: pointer;
   &.button-type-default {
     background: $color-black-second;
     color: $color-white;
@@ -69,6 +72,9 @@ export default {
   }
   &.button-icon {
     justify-content: space-between;
+  }
+  &.button-type-order {
+    padding: 31px 100px 31px 40px;
   }
 }
 </style>

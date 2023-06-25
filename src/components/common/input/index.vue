@@ -2,7 +2,6 @@
   <div class="input-component">
     <input
       ref="input"
-      :id="localId"
       :type="type"
       :value="value"
       :placeholder="placeholder"

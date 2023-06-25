@@ -19,8 +19,16 @@
 html {
   font-family: "Inter", sans-serif;
   color: $color-light-black;
+  font-size: $font-size-default;
 }
 
 .wrapper {
   padding: 0 100px;
+}
+body.fixed {
+  position: fixed;
+  overflow-y: scroll;
+  left: 0;
+  top: 0;
+  width: 100%;
 }
