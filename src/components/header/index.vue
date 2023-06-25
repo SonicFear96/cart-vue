@@ -19,22 +19,34 @@
             <a href="#" class="header-component__menu-link">Profile</a>
           </li>
           <li class="header-component__menu-item">
-            <button class="header-component__menu-item-button">
+            <button
+              class="header-component__menu-item-button"
+              @click="openModal = !openModal"
+              :class="{ active: openModal }"
+            >
               Basket (2)
             </button>
           </li>
         </ul>
       </div>
     </div>
+    <ModalBasket :openModal="openModal" @close="openModal = false" />
   </header>
 </template>
 
 <script>
 import IconLogo from "@/components/icons/logo-icon";
+import ModalBasket from "@/components/modal-basket";
 export default {
   name: "header-component",
   components: {
     IconLogo,
+    ModalBasket,
+  },
+  data() {
+    return {
+      openModal: false,
+    };
   },
 };
 </script>
@@ -44,10 +56,11 @@ export default {
   color: $color-black;
 
   &__wrapper {
-    padding: 35px 0;
+    padding: 38px 0;
     display: flex;
+    height: 100px;
     justify-content: space-between;
-    border-bottom: 1px solid $color-light-gray;
+    border-bottom: 1px solid $color-light-grey;
   }
   &__left-menu,
   &__right-menu {
@@ -90,6 +103,9 @@ export default {
     &-button {
       background: none;
       cursor: pointer;
+      &.active {
+        color: $color-orange;
+      }
     }
   }
 }

@@ -5,7 +5,11 @@
     </div>
     <div class="product-card__content-wrapper">
       <span class="product-card__title">Converse Kids 70</span>
-      <span class="product-card__price">$49.99</span>
+      <div class="product-card__price-wrapper">
+        <span class="product-card__price">$49.99</span>
+        <span class="product-card__old-price">$84.99</span>
+      </div>
+
       <div class="product-card__button-wrapper">
         <CommonButton>
           <span>Add to basket </span>
@@ -67,10 +71,20 @@ export default {
       flex-direction: column;
       margin-top: 15px;
     }
-    &__price {
+    &__price-wrapper {
       margin-top: 5px;
+      display: flex;
+      gap: 10px;
+    }
+    &__price {
       font-size: 16px;
       font-weight: $font-weight-semi-bold;
+    }
+    &__old-price {
+      font-size: 16px;
+      font-weight: $font-weight-semi-bold;
+      text-decoration: line-through;
+      color: $color-light-grey-second;
     }
     &__button-wrapper {
       margin-top: 15px;
