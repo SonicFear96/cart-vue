@@ -4,7 +4,7 @@
       <div class="footer-component__logo">
         <IconLogo />
       </div>
-      <div class="footer-component__nav">
+      <div class="footer-component__nav-wrapper">
         <a class="footer-component__nav-link" href="#">Copyright</a>
         <a class="footer-component__nav-link" href="#">Contacts</a>
       </div>
@@ -33,8 +33,10 @@ export default {
     justify-content: space-between;
   }
   &__nav {
-    display: flex;
-    gap: 40px;
+    &-wrapper {
+      display: flex;
+      gap: 40px;
+    }
     &-link {
       font-size: $font-size-default;
       font-weight: $font-weight-medium;
