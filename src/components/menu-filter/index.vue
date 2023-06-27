@@ -65,22 +65,24 @@ export default {
         {
           id: 1,
           title: "Full Price",
+          value: false,
         },
         {
           id: 2,
           title: "Sale",
+          value: true,
         },
       ],
       sorting: [
         {
           id: 1,
           title: "Price high to low",
-          value: "asc",
+          value: "desc",
         },
         {
           id: 2,
           title: "Price low to hihg",
-          value: "desc",
+          value: "asc",
         },
       ],
       form: {

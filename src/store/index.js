@@ -24,8 +24,8 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getProducts() {
-      const result = await fetch(`${URL}/products`);
+    async getProducts(state, string = "") {
+      const result = await fetch(`${URL}/products${string}`);
       return result.json();
     },
     setProductsToCart({ commit }, data) {
