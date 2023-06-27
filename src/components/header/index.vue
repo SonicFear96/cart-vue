@@ -24,7 +24,10 @@
               @click="openModal = !openModal"
               :class="{ active: openModal }"
             >
-              Basket (2)
+              Basket
+              <span v-if="productsCart.length">
+                ({{ productsCart.length }})</span
+              >
             </button>
           </li>
         </ul>
@@ -37,6 +40,8 @@
 <script>
 import IconLogo from "@/components/icons/logo-icon";
 import ModalBasket from "@/components/modal-basket";
+import { mapGetters } from "vuex";
+
 export default {
   name: "header-component",
   components: {
@@ -47,6 +52,11 @@ export default {
     return {
       openModal: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      productsCart: "getCartPositions",
+    }),
   },
 };
 </script>

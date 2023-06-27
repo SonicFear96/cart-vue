@@ -1,54 +1,79 @@
 <template>
   <div class="product-card-component" :class="[getType]">
     <div class="product-card__image-wrapper">
-      <img src="@/assets/img/product-1.png" alt="product image" />
+      <img :src="getImage" alt="product image" />
     </div>
     <div class="product-card__content-wrapper">
-      <span class="product-card__title">Converse Kids 70</span>
+      <span class="product-card__title">{{ data.title }}</span>
       <div class="product-card__price-wrapper">
-        <span class="product-card__price">$49.99</span>
-        <span class="product-card__old-price">$84.99</span>
+        <span class="product-card__price">${{ data.price }}</span>
+        <span class="product-card__old-price" v-if="data.sale"
+          >${{ data.oldPrice }}</span
+        >
       </div>
 
       <div class="product-card__button-wrapper">
-        <CommonButton>
+        <CommonButton v-if="!productInCart" @click="addProductToCart(data)">
           <span>Add to basket </span>
           <template v-slot:icon-default>
             <IconPlus />
           </template>
         </CommonButton>
-        <!-- <CommonButton type="light">
+        <CommonButton v-else type="light">
           <span>Added</span>
           <template v-slot:icon-default>
             <IconCheck />
           </template>
-        </CommonButton> -->
+        </CommonButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import CommonButton from "@/components/common/button";
-// import IconCheck from "@/components/icons/check-icon";
+import IconCheck from "@/components/icons/check-icon";
 import IconPlus from "@/components/icons/plus-icon";
 export default {
   name: "produc-card-component",
   components: {
-    // IconCheck,
+    IconCheck,
     IconPlus,
     CommonButton,
   },
   props: {
-    // type: default, wide
+    data: {
+      type: Object,
+      default: () => {},
+    },
     type: {
       type: String,
       default: "default",
     },
   },
   computed: {
+    ...mapGetters({
+      productsCart: "getCartPositions",
+    }),
     getType() {
       return `product-card-${this.type}`;
+    },
+    getImage() {
+      return require(`@/assets/img/${this.data.image}.png`);
+    },
+    productInCart() {
+      return this.productsCart.find((item) => item.id === this.data.id);
+    },
+  },
+  methods: {
+    ...mapActions({
+      setProductsToCart: "setProductsToCart",
+    }),
+    addProductToCart(product) {
+      const products = [...this.productsCart];
+      products.push(product);
+      this.setProductsToCart(products);
     },
   },
 };
@@ -64,6 +89,9 @@ export default {
         width: 100%;
         height: 100%;
       }
+    }
+    &__title {
+      font-size: 16px;
     }
     &__content-wrapper {
       max-width: 335px;

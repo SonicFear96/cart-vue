@@ -16,7 +16,10 @@
               @click="$emit('close')"
               :class="{ active: openModal }"
             >
-              Basket (2)
+              <span>Basket</span>
+              <span v-if="productsCart.length">
+                ({{ productsCart.length }})</span
+              >
             </button>
           </li>
         </ul>
@@ -26,28 +29,31 @@
         <div class="modal-basket__info">
           <div class="modal-basket__info-price">
             <span class="modal-basket__info-name">Subtotal:</span>
-            <span class="modal-basket__info-value">$99.99</span>
+            <span class="modal-basket__info-value">${{ getAllPrice }}</span>
           </div>
           <div class="modal-basket__info-sale">
             <span class="modal-basket__info-name">Sale:</span>
-            <span class="modal-basket__info-value">$99.99</span>
+            <span class="modal-basket__info-value">${{ getSalePrice }}</span>
           </div>
           <div class="modal-basket__info-content">
             <span class="modal-basket__info-name">Content:</span>
-            <button class="modal-basket__info-button">Remove all</button>
+            <button class="modal-basket__info-button" @click="removeProducts">
+              Remove all
+            </button>
           </div>
         </div>
         <div class="modal-basket__total-price">
           <span class="total-price__title">Order Total:</span>
-          <span class="total-price__value">$135.99</span>
+          <span class="total-price__value">${{ getFinalPrice }}</span>
         </div>
-        <div class="modal-basket__product-list-wrapper">
+        <div class="modal-basket__product-list-wrapper" v-if="productsCart">
           <ul class="modal-basket__product-list">
-            <li class="modal-basket__product-item">
-              <BasketCard />
-            </li>
-            <li class="modal-basket__product-item">
-              <BasketCard />
+            <li
+              class="modal-basket__product-item"
+              v-for="item in productsCart"
+              :key="item.id"
+            >
+              <BasketCard :data="item" />
             </li>
           </ul>
         </div>
@@ -65,6 +71,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import CommonModal from "@/components/common/modal";
 import CommonButton from "@/components/common/button";
 import BasketCard from "@/components/product-card/basket";
@@ -79,6 +86,43 @@ export default {
   },
   props: {
     openModal: Boolean,
+  },
+  computed: {
+    ...mapGetters({
+      productsCart: "getCartPositions",
+    }),
+    getAllPrice() {
+      let price = 0;
+      this.productsCart.map((item) => {
+        if (item.sale) {
+          price += item.oldPrice;
+        } else {
+          price += item.price;
+        }
+      });
+      return price;
+    },
+    getSalePrice() {
+      let price = 0;
+      this.productsCart.map((item) => {
+        if (item.sale) {
+          price += item.oldPrice - item.price;
+        }
+      });
+      return Math.ceil(price);
+    },
+    getFinalPrice() {
+      let price = 0;
+      this.productsCart.map((item) => {
+        price += item.price;
+      });
+      return price;
+    },
+  },
+  methods: {
+    removeProducts() {
+      this.$store.dispatch("removeAllProductsFromCart");
+    },
   },
 };
 </script>
@@ -149,6 +193,7 @@ export default {
         font-weight: $font-weight-medium;
         text-decoration-line: underline;
         background: none;
+        cursor: pointer;
       }
     }
     &__total-price {
@@ -172,6 +217,19 @@ export default {
       flex-direction: column;
       gap: 40px;
       padding-left: 40px;
+      max-height: 250px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: lightgray;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: gray;
+      }
       &-wrapper {
         margin-top: 40px;
       }

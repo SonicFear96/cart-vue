@@ -1,19 +1,50 @@
 <template>
   <div class="basket-card-component">
     <div class="basket-card__image">
-      <img src="@/assets/img/product-1.png" alt="product image" />
+      <img :src="getImage" alt="product image" />
     </div>
     <div class="basket-card__content">
-      <span class="basket-card__title">Converse Chuck 70 Renew High Top</span>
-      <span class="basket-card__price">$50.99</span>
-      <button class="basket-card__button">Remove</button>
+      <span class="basket-card__title">{{ data.title }}</span>
+      <div class="basket-card__price-wrapper">
+        <span class="basket-card__old-price" v-if="data.sale"
+          >${{ data.oldPrice }}</span
+        >
+        <span class="basket-card__price">${{ data.price }}</span>
+      </div>
+      <button class="basket-card__button" @click="deleteProductFromCart(data)">
+        Remove
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "basket-card-component",
+  computed: {
+    ...mapGetters({
+      productsCart: "getCartPositions",
+    }),
+    getImage() {
+      return require(`@/assets/img/${this.data.image}.png`);
+    },
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  methods: {
+    ...mapActions({
+      setProductsToCart: "setProductsToCart",
+    }),
+    deleteProductFromCart(product) {
+      const products = this.productsCart.filter((el) => el.id !== product.id);
+      this.setProductsToCart(products);
+    },
+  },
 };
 </script>
 
@@ -41,9 +72,19 @@ export default {
       font-size: 16px;
     }
     &__price {
-      margin-top: 5px;
+      &-wrapper {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+      }
       font-size: 16px;
       font-weight: $font-weight-medium;
+    }
+    &__old-price {
+      font-size: 16px;
+      font-weight: $font-weight-semi-bold;
+      text-decoration: line-through;
+      color: $color-light-grey-second;
     }
     &__button {
       display: flex;
@@ -52,6 +93,7 @@ export default {
       font-weight: $font-weight-medium;
       text-decoration-line: underline;
       background: none;
+      cursor: pointer;
     }
   }
 }
