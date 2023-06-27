@@ -1,6 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: process.env.NODE_ENV === "production" ? "/cart-vue/" : "/",
   css: {
     loaderOptions: {
       scss: {
@@ -9,13 +10,3 @@ module.exports = defineConfig({
     },
   },
 });
-
-// module.exports = {
-//   css: {
-//     loaderOptions: {
-//       scss: {
-//         additionalData: `@import "~@/assets/scss/index.scss";`,
-//       },
-//     },
-//   },
-// };
