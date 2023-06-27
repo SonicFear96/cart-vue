@@ -4,7 +4,7 @@
     <main>
       <div class="main-content wrapper">
         <section class="menu-filter-wrapper">
-          <MenuFilter />
+          <MenuFilter @sendFilters="sendFilters" />
         </section>
         <section class="catalog-wrapper">
           <div class="catalog-title-wrapper">
@@ -52,6 +52,28 @@ export default {
       getProducts: "getProducts",
       getProductsFromCart: "getProductsFromCart",
     }),
+    async sendFilters(data) {
+      let str = "";
+      if (data.search) {
+        const separator = str.length ? "&" : "?";
+        str += `${separator}search=${data.search}`;
+      }
+      if (data.category) {
+        const separator = str.length ? "&" : "?";
+        str += `${separator}filter=${data.title}`;
+      }
+      if (data.sale) {
+        const separator = str.length ? "&" : "?";
+        if (data.sale.value) {
+          str += `${separator}filter=true`;
+        }
+      }
+      if (data.sorting) {
+        const separator = str.length ? "&" : "?";
+        str += `${separator}orderBy=price&order=${data.sorting.value}`;
+      }
+      this.products = await this.getProducts(str);
+    },
   },
   async mounted() {
     this.products = await this.getProducts();
