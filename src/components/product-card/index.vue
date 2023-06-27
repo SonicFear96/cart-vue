@@ -1,5 +1,8 @@
 <template>
   <div class="product-card-component" :class="[getType]">
+    <div class="product-card__marker" v-if="data.sale">
+      Sale −{{ data.salePrecent }}%
+    </div>
     <div class="product-card__image-wrapper">
       <img :src="getImage" alt="product image" />
     </div>
@@ -80,10 +83,19 @@ export default {
 </script>
 <style lang="scss">
 .product-card-component {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   .product-card {
+    &__marker {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      padding: 12px 20px;
+      background: $color-orange;
+      color: $color-white;
+    }
     &__image-wrapper {
       img {
         width: 100%;
